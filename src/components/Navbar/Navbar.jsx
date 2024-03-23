@@ -20,7 +20,7 @@ const Navbar = () => {
         <li>
           <NavLink to="/" className={({ isActive }) => (isActive ? styles.active : "")}>Home</NavLink>
         </li>
-        {!user && (
+        {user && (
           <>
             <li>
               <NavLink to="/Login" className={({ isActive }) => (isActive ? styles.active : "")}>Login</NavLink>
