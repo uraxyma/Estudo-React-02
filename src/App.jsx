@@ -17,6 +17,8 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import CreatePost from "./pages/CreatePost/CreatePost";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
 
@@ -45,8 +47,14 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/About" element={<About />} />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/Register" element={<Register />} />
+
+                <Route path="/Login" element={!user ? <Login /> : <Navigate to="/" />} />
+                <Route path="/Register" element={!user ? <Register /> : <Navigate to="/" />} />
+                <Route
+                  path="/posts/create"
+                  element={user ? <CreatePost /> : <Navigate to="/login" />}
+                />
+                <Route path="/Dashboard" element={user ? <Dashboard /> : <Navigate to="/Login" />} />
               </Routes>
             </div>
             <Footer />
