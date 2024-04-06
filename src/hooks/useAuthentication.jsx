@@ -86,26 +86,20 @@ export const useAuthentication = () => {
             await signInWithEmailAndPassword(auth, data.email, data.password);
             setLoading(false);
         } catch (error) {
-
             let systemErrorMessage;
             console.log(systemErrorMessage);
-
             // credenciais do firebase mudaram e mesmo seguindo adocumentação continua dando erro de credenciais
-            if (error.message.includes("user-not-found")) {
+            if (error.message.includes("auth/invalid-login-credentials")) {
                 systemErrorMessage = "Usuário não encontrado.";
-            } else if (error.message.includes("wrong-password")) {
+            } else if (error.message.includes("auth/invalid-password")) {
                 systemErrorMessage = "Senha incorreta.";
             } else {
-                systemErrorMessage = "Ocorreu um erro, por favor tente novamente mais tarde";
+                systemErrorMessage = "Ocorreu um erro, por favor, tente novamente mais tarde";
             }
-
             setError(systemErrorMessage);
             setLoading(false);
-
         }
-
     };
-
     useEffect(() => {
         return () => setCancelled(true);
     }, []);
