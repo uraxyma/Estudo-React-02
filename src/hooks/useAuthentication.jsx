@@ -51,6 +51,7 @@ export const useAuthentication = () => {
             console.log(typeof error.message);
 
             let systemErrorMessage;
+
             if (error.message.includes("Password")) {
                 systemErrorMessage = "A senha precisa conter pelo menos  6 caracteres!!";
             } else if (error.message.include("email-already")) {
@@ -67,9 +68,42 @@ export const useAuthentication = () => {
     // logout < sign out
 
     const logout = () => {
-        checkIfIsCancelled()
+        checkIfIsCancelled();
 
         signOut(auth);
+    };
+
+    // login < sign in
+
+    const login = async (data) => {
+
+        checkIfIsCancelled();
+
+        setLoading(true);
+        setError(false);
+
+        try {
+            await signInWithEmailAndPassword(auth, data.email, data.password);
+            setLoading(false);
+        } catch (error) {
+
+            let systemErrorMessage;
+            console.log(systemErrorMessage);
+
+            // credenciais do firebase mudaram e mesmo seguindo adocumentação continua dando erro de credenciais
+            if (error.message.includes("user-not-found")) {
+                systemErrorMessage = "Usuário não encontrado.";
+            } else if (error.message.includes("wrong-password")) {
+                systemErrorMessage = "Senha incorreta.";
+            } else {
+                systemErrorMessage = "Ocorreu um erro, por favor tente novamente mais tarde";
+            }
+
+            setError(systemErrorMessage);
+            setLoading(false);
+
+        }
+
     };
 
     useEffect(() => {
@@ -82,5 +116,6 @@ export const useAuthentication = () => {
         error,
         loading,
         logout,
+        login,
     };
 };
