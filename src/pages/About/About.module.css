@@ -1,17 +1,19 @@
 .about {
     text-align: center;
+    color: #000000;
+}
+
+.paragrafo {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
 }
 
-.about p {
-    color: #aaa;
-    margin-bottom: 2em;
-}
-
-.about a {
-    display: block;
-    margin-top: 15px;
-    padding: 10px 15px;
+.sub {
+    color: #2190cb;
+    font-weight: bold;
+    font-size: 3em;
+    padding-left: 20px;
+    padding-right: 20px;
 }
